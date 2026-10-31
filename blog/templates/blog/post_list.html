@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Blog</title>
+
+    <style>
+        body {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+            font-family: Arial, sans-serif;
+            line-height: 1.8;
+            background: #f5f5f5;
+            color: #222;
+        }
+
+        article {
+            margin-bottom: 24px;
+            padding: 24px;
+            background: white;
+            border-radius: 12px;
+        }
+
+        .metadata {
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Latest Posts</h1>
+
+    {% for post in posts %}
+        <article>
+            <h2>{{ post.title }}</h2>
+
+            <p class="metadata">
+                Author:
+                {% if post.author %}
+                    {{ post.author.username }}
+                {% else %}
+                    Unknown
+                {% endif %}
+
+                | Date:
+                {{ post.created_date|date:"Y-m-d" }}
+            </p>
+
+            <p>{{ post.content|truncatewords:30 }}</p>
+
+            <p>
+                Categories:
+                {% for category in post.categories.all %}
+                    <span>{{ category.name }}</span>{% if not forloop.last %}, {% endif %}
+                {% empty %}
+                    Uncategorized
+                {% endfor %}
+            </p>
+        </article>
+    {% empty %}
+        <p>No posts yet.</p>
+    {% endfor %}
+</body>
+</html>
