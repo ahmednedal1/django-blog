@@ -6,7 +6,8 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 
 from ..models import Post
-from ..serializers import PostSerializer
+from ..serializers import CreatePostSerializer, PostSerializer
+from .base import CreateEntityViewSet
 
 
 class PostPagination(PageNumberPagination):
@@ -53,3 +54,9 @@ def post_list(request):
         .order_by('-created_date', '-pk')
     )
     return render(request, 'blog/post_list.html', {'posts': posts})
+
+
+# Task 2: POST-only creation endpoint.
+class PostCreateViewSet(CreateEntityViewSet):
+    queryset = Post.objects.all()
+    serializer_class = CreatePostSerializer

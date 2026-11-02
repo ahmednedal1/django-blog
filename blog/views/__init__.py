@@ -1,5 +1,11 @@
-from .category import CategoryViewSet
-from .comment import CommentViewSet
-from .post import PostViewSet, get_posts, post_list
+from .category import CategoryCreateViewSet, CategoryViewSet
+from .comment import CommentCreateViewSet, CommentViewSet
+from .post import PostCreateViewSet, PostViewSet, get_posts, post_list
+from .user import UserCreateViewSet
 
-__all__ = ['CategoryViewSet', 'CommentViewSet', 'PostViewSet', 'get_posts', 'post_list']
+__all__ = [
+    'CategoryCreateViewSet', 'CategoryViewSet',
+    'CommentCreateViewSet', 'CommentViewSet',
+    'PostCreateViewSet', 'PostViewSet', 'UserCreateViewSet',
+    'get_posts', 'post_list',
+]

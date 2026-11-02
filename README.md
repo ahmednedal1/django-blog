@@ -1,7 +1,7 @@
 # Django Blog
 
-See [Task 2 completion and verification note](TASK_2.md) for what was
-implemented, what was tested, and the intended scope of this assignment.
+Assignment milestones are documented here; application files are organized by
+entity and purpose, with comments marking Task 2 additions.
 
 ## Task 2 — REST POST APIs
 
@@ -103,3 +103,45 @@ database. Task 2 adds no model changes or migrations.
 
 `.env`, virtual environments, caches, and local SQLite files are excluded by
 `.gitignore`. `.env.example`, source code, tests, and migrations belong in Git.
+
+## Task 2 verification and scope note
+
+## Verification completed
+
+- All 29 automated tests passed when Task 2 was implemented. These cover the
+  four exact endpoints, required fields, duplicates, email validation,
+  relationship IDs, saved records, and rollback on a simulated server error.
+- Manual browser tests returned HTTP 201 for all four creation endpoints.
+- Manual duplicate-user tests returned HTTP 400 for username and email.
+- Manual duplicate-category testing returned HTTP 400 for the category name.
+- A manual comment request referencing post ID 999999 returned HTTP 400.
+
+Required-field checks are covered by automated tests; a separate manual
+required-field test was suggested but has not been confirmed in the session.
+
+## Intended behavior and scope
+
+- Repeated post or comment content is allowed. Duplicate authors or category
+  assignments across different posts are also allowed. Each record gets its own ID.
+- User first/last names and category descriptions may repeat; only usernames,
+  emails, and category names have uniqueness constraints.
+- These endpoints create blog author profiles, not Django authentication accounts.
+  Passwords are not accepted or returned by these APIs. Django authentication
+  accounts remain separate and use Django's password hashing.
+- Task 2 provides POST creation, not GET lists or update/delete routes at `/api/`.
+  GET on a Task 2 endpoint correctly returns HTTP 405. Earlier `/blog/api/` CRUD
+  endpoints remain available with their existing permissions.
+- Creation is public for this assignment; account ownership and production
+  authentication policies are outside this task's scope.
+- No model schema changes or new migrations were needed for Task 2.
+- PostgreSQL stores API-created records locally. GitHub contains source code,
+  tests, documentation, migrations, and `.env.example`; it does not contain the
+  application database, real `.env` credentials, or virtual environments.
+
+
+### Code organization
+
+Serializers and views live in entity-named modules (`user.py`, `post.py`,
+`category.py`, `comment.py`). Shared creation behavior is in `views/base.py`.
+All blog routes are defined in `blog/urls.py`; `config/urls.py` mounts them.
+Creation tests are in `blog/test_api.py`. Comments mark the Task 2 additions.

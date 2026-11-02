@@ -1,5 +1,5 @@
 from django.urls import include, path
-from rest_framework.routers import DefaultRouter
+from rest_framework.routers import DefaultRouter, SimpleRouter
 
 from . import views
 from .views import CategoryViewSet, CommentViewSet, PostViewSet
@@ -15,3 +15,13 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls')),
 ]
+
+
+# Task 2: root /api/ POST endpoints; mounted by config/urls.py.
+creation_router = SimpleRouter()
+creation_router.register('users', views.UserCreateViewSet)
+creation_router.register('categories', views.CategoryCreateViewSet)
+creation_router.register('posts', views.PostCreateViewSet)
+creation_router.register('comments', views.CommentCreateViewSet)
+
+api_urlpatterns = creation_router.urls

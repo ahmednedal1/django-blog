@@ -17,8 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+from blog.urls import api_urlpatterns
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('blog.task2_urls')),
+    # Task 2: creation APIs at the exact assignment URLs.
+    path('api/', include((api_urlpatterns, 'api'), namespace='api')),
     path('blog/', include('blog.urls')),
 ]
