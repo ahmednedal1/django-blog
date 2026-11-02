@@ -1,5 +1,8 @@
 # Django Blog
 
+See [Task 2 completion and verification note](TASK_2.md) for what was
+implemented, what was tested, and the intended scope of this assignment.
+
 ## Task 2 — REST POST APIs
 
 This update is **Task 2**: creating blog users, categories, posts, and comments
