@@ -11,7 +11,10 @@ router.register('comments', CommentViewSet)
 
 urlpatterns = [
     path('', views.post_list, name='post_list'),
+    # Task 3: summarize an existing post using its ID.
+    path('posts/<int:post_id>/summarize/', views.summarize_post_view, name='summarize_post'),
     path('api/get-posts/', views.get_posts, name='get_posts'),
+    path('api/generate-post/', views.generate_post, name='generate_post'),
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls')),
 ]

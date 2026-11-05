@@ -2,7 +2,7 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from ..models import Comment
-from ..serializers import CreateCommentSerializer, CommentSerializer
+from ..serializers import CommentSerializer, CreateCommentSerializer
 from .base import CreateEntityViewSet
 
 

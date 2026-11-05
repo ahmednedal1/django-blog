@@ -3,6 +3,36 @@
 Assignment milestones are documented here; application files are organized by
 entity and purpose, with comments marking Task 2 additions.
 
+## Task 3 — AI post summaries
+
+Send `POST /blog/posts/<post_id>/summarize/` to summarize an existing post.
+The service reads the post's saved content, calls the shared `ContentClient`
+once, and returns `post_id`, `title`, `summary`, and `length`. The summary is
+trimmed to at most 500 characters; it is not saved back to the database.
+
+For example, with a post ID that exists in your database:
+
+```powershell
+curl.exe -X POST http://127.0.0.1:8001/blog/posts/5/summarize/
+```
+
+A missing post returns `404` with a JSON error. An ID of `0`, blank post
+content, or an empty model response returns `400`. The URL uses Django's
+integer converter, so a non-numeric or negative URL segment does not match
+the route and returns `404`.
+
+The service can also be called directly in `python manage.py shell`:
+
+```python
+from blog.AI_Content.services import summarize_post
+result = summarize_post(5)
+print(result)
+```
+
+Configure `OPENAI_APIKEY` and `OPENAI_MODEL` in your local `.env` before a real
+request. A real request uses the OpenAI API and may incur charges. Automated
+tests mock the client and do not make API requests.
+
 ## Task 2 — REST POST APIs
 
 This update is **Task 2**: creating blog users, categories, posts, and comments
